@@ -2,64 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>.DebEditor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <div class="editor-container">
     <header class="topbar">
       <h1>.DebEditor</h1>
       <p>Import · Edit · Export .deb files</p>
     </header>
 
-    <section class="section import-section">
+    <!-- IMPORT -->
+    <section class="section">
       <h2>Import .deb</h2>
-      <label class="custom-file-upload">
+
+      <div id="drop-zone">
+        <p>Drag & drop a <strong>.deb</strong> file here</p>
+        <span>or click to select</span>
         <input type="file" id="import-file" accept=".deb">
-        Select .deb File
-      </label>
-      <button class="btn" onclick="importFile()">Import</button>
+      </div>
+
+      <p id="file-name"></p>
     </section>
 
-    <section class="section edit-section">
+    <!-- EDIT -->
+    <section class="section">
       <h2>Edit Package</h2>
       <textarea id="file-contents" placeholder="Package data will appear here…"></textarea>
-      <button class="btn" onclick="editFile()">Apply Changes</button>
     </section>
 
-    <section class="section export-section">
+    <!-- EXPORT -->
+    <section class="section">
       <h2>Export .deb</h2>
       <button class="btn export-btn" onclick="exportFile()">Export Package</button>
     </section>
   </div>
 
   <script>
-    function importFile() {
-      const fileInput = document.getElementById('import-file');
-      if (!fileInput.files.length) {
-        alert("Please choose a .deb file to import.");
-        return;
-      }
-      const file = fileInput.files[0];
-      document.getElementById('file-contents').value = `Loaded: ${file.name}`;
-      // TODO: send file to backend for unpacking/editing
-    }
+    const dropZone = document.getElementById("drop-zone");
+    const fileInput = document.getElementById("import-file");
+    const fileName = document.getElementById("file-name");
+    const textArea = document.getElementById("file-contents");
 
-    function editFile() {
-      const content = document.getElementById('file-contents').value;
-      if (!content) {
-        alert("Nothing to edit.");
+    dropZone.addEventListener("click", () => fileInput.click());
+
+    dropZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZone.classList.add("dragover");
+    });
+
+    dropZone.addEventListener("dragleave", () => {
+      dropZone.classList.remove("dragover");
+    });
+
+    dropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropZone.classList.remove("dragover");
+      handleFile(e.dataTransfer.files[0]);
+    });
+
+    fileInput.addEventListener("change", () => {
+      handleFile(fileInput.files[0]);
+    });
+
+    function handleFile(file) {
+      if (!file || !file.name.endsWith(".deb")) {
+        alert("Please select a valid .deb file.");
         return;
       }
-      alert("Contents updated!");
-      // TODO: apply edits to parsed .deb data
+      fileName.textContent = `Loaded: ${file.name}`;
+      textArea.value = `Loaded package: ${file.name}\n\n(This is UI-only. Backend needed to unpack/edit.)`;
     }
 
     function exportFile() {
-      alert("Export triggered!");
-      // TODO: send updated content to backend to reassemble .deb
+      alert("Export requires backend support (dpkg-deb).");
     }
   </script>
+
 </body>
 </html>
