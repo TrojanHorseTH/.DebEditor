@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T.H Deb Package Editor</title>
+  <title>Deb Package Editor</title>
+  <!-- Make sure this links correctly to your CSS file -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,6 +16,7 @@
     <div class="actions">
       <div class="action import">
         <h2>Import .deb</h2>
+        <label for="import-file" class="file-label">Choose File</label>
         <input type="file" id="import-file" class="file-input" accept=".deb">
         <button class="btn" onclick="importFile()">Import</button>
       </div>
