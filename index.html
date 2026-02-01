@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deb Package Editor</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Deb Package Editor</h1>
+      <p>Edit, import, and export .deb files with ease</p>
+    </header>
+    <div class="file-actions">
+      <div class="action import">
+        <h2>Import .deb</h2>
+        <input type="file" id="import-file" class="file-input" accept=".deb">
+        <button class="btn" onclick="importFile()">Import</button>
+      </div>
+      
+      <div class="action edit">
+        <h2>Edit .deb Package</h2>
+        <textarea id="file-contents" placeholder="Edit package details here..."></textarea>
+        <button class="btn" onclick="editFile()">Edit</button>
+      </div>
+      
+      <div class="action export">
+        <h2>Export .deb</h2>
+        <button class="btn" onclick="exportFile()">Export</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function importFile() {
+      const fileInput = document.getElementById('import-file');
+      if (fileInput.files.length > 0) {
+        alert('Imported file: ' + fileInput.files[0].name);
+        // Add functionality for handling .deb import (e.g., upload to server)
+      } else {
+        alert('Please select a .deb file to import.');
+      }
+    }
+
+    function editFile() {
+      const contents = document.getElementById('file-contents').value;
+      if (contents) {
+        alert('Editing .deb package: \n' + contents);
+        // Add functionality to handle editing of .deb contents
+      } else {
+        alert('Please enter content to edit.');
+      }
+    }
+
+    function exportFile() {
+      alert('Exporting .deb file...');
+      // Add functionality to export .deb (e.g., zip the contents and prompt download)
+    }
+  </script>
+</body>
+</html>
