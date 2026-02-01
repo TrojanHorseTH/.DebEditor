@@ -3,61 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deb Package Editor</title>
-  <!-- Make sure this links correctly to your CSS file -->
-  <link rel="stylesheet" href="styles.css">
+  <title>.DebEditor</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Deb Package Editor</h1>
-      <p>Edit, Import, and Export .deb Files</p>
+  <div class="editor-container">
+    <header class="topbar">
+      <h1>.DebEditor</h1>
+      <p>Import · Edit · Export .deb files</p>
     </header>
-    <div class="actions">
-      <div class="action import">
-        <h2>Import .deb</h2>
-        <label for="import-file" class="file-label">Choose File</label>
-        <input type="file" id="import-file" class="file-input" accept=".deb">
-        <button class="btn" onclick="importFile()">Import</button>
-      </div>
-      
-      <div class="action edit">
-        <h2>Edit .deb Package</h2>
-        <textarea id="file-contents" placeholder="Edit package contents here..."></textarea>
-        <button class="btn" onclick="editFile()">Edit</button>
-      </div>
-      
-      <div class="action export">
-        <h2>Export .deb</h2>
-        <button class="btn" onclick="exportFile()">Export</button>
-      </div>
-    </div>
+
+    <section class="section import-section">
+      <h2>Import .deb</h2>
+      <label class="custom-file-upload">
+        <input type="file" id="import-file" accept=".deb">
+        Select .deb File
+      </label>
+      <button class="btn" onclick="importFile()">Import</button>
+    </section>
+
+    <section class="section edit-section">
+      <h2>Edit Package</h2>
+      <textarea id="file-contents" placeholder="Package data will appear here…"></textarea>
+      <button class="btn" onclick="editFile()">Apply Changes</button>
+    </section>
+
+    <section class="section export-section">
+      <h2>Export .deb</h2>
+      <button class="btn export-btn" onclick="exportFile()">Export Package</button>
+    </section>
   </div>
 
   <script>
     function importFile() {
       const fileInput = document.getElementById('import-file');
-      if (fileInput.files.length > 0) {
-        alert('Imported file: ' + fileInput.files[0].name);
-        // Add functionality for handling .deb import (e.g., upload to server)
-      } else {
-        alert('Please select a .deb file to import.');
+      if (!fileInput.files.length) {
+        alert("Please choose a .deb file to import.");
+        return;
       }
+      const file = fileInput.files[0];
+      document.getElementById('file-contents').value = `Loaded: ${file.name}`;
+      // TODO: send file to backend for unpacking/editing
     }
 
     function editFile() {
-      const contents = document.getElementById('file-contents').value;
-      if (contents) {
-        alert('Editing .deb package: \n' + contents);
-        // Add functionality to handle editing of .deb contents
-      } else {
-        alert('Please enter content to edit.');
+      const content = document.getElementById('file-contents').value;
+      if (!content) {
+        alert("Nothing to edit.");
+        return;
       }
+      alert("Contents updated!");
+      // TODO: apply edits to parsed .deb data
     }
 
     function exportFile() {
-      alert('Exporting .deb file...');
-      // Add functionality to export .deb (e.g., zip the contents and prompt download)
+      alert("Export triggered!");
+      // TODO: send updated content to backend to reassemble .deb
     }
   </script>
 </body>
