@@ -1,119 +1,33 @@
 /* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Inter, system-ui, sans-serif;
-}
-
-/* PAGE */
-html, body {
-  width: 100%;
-  height: 100%;
-  background: #121212;
-  color: #e6e6e6;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+html, body { width: 100%; height: 100%; background: #1f1f1f; color: #eee; }
 
 /* CONTAINER */
-.editor-container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
-}
+.editor-container { max-width: 900px; margin: 40px auto; padding: 20px; }
 
 /* HEADER */
-.topbar {
-  text-align: center;
-  margin-bottom: 30px;
-}
-.topbar h1 {
-  font-size: 2.6rem;
-}
-.topbar p {
-  color: #9a9a9a;
-}
+.topbar { text-align: center; margin-bottom: 30px; }
+.topbar h1 { font-size: 2.8rem; }
+.topbar p { color: #aaa; }
 
 /* SECTIONS */
-.section {
-  background: #1c1c1c;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 24px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-}
-.section h2 {
-  margin-bottom: 12px;
-  font-size: 1.3rem;
-}
-
-/* DRAG & DROP */
-#drop-zone {
-  border: 2px dashed #444;
-  border-radius: 8px;
-  padding: 40px;
-  text-align: center;
-  cursor: pointer;
-  background: #151515;
-  transition: all 0.2s ease;
-}
-
-#drop-zone.dragover {
-  border-color: #0088cc;
-  background: #1e1e1e;
-}
-
-#drop-zone p {
-  font-size: 1.1rem;
-  margin-bottom: 6px;
-}
-
-#drop-zone span {
-  font-size: 0.9rem;
-  color: #888;
-}
-
-#drop-zone input {
-  display: none;
-}
-
-#file-name {
-  margin-top: 10px;
-  font-size: 0.9rem;
-  color: #aaa;
-}
+.section { background: #2a2a2a; border-radius: 10px; padding: 20px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);}
+.section h2 { font-size: 1.5rem; margin-bottom: 12px; }
 
 /* TEXTAREA */
-textarea {
-  width: 100%;
-  height: 220px;
-  background: #121212;
-  border: 1px solid #333;
-  color: #e6e6e6;
-  padding: 12px;
-  border-radius: 6px;
-  resize: vertical;
-  font-family: monospace;
-}
+textarea { width: 100%; height: 220px; background: #1c1c1c; color: #eee; border: 2px solid #444; border-radius: 8px; padding: 12px; font-family: monospace; resize: vertical; }
 
 /* BUTTONS */
-.btn {
-  background: #0088cc;
-  color: white;
-  border: none;
-  padding: 12px 22px;
-  font-size: 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
+.btn { display: inline-block; width: 100%; padding: 12px; margin-top: 12px; font-size: 1.1rem; color: #fff; background: #00796b; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+.btn:hover { background: #004d40; transform: translateY(-2px); }
+.btn:active { transform: translateY(1px); }
+.export-btn { background: #22aa66; }
+.export-btn:hover { background: #1a7a4f; }
 
-.btn:hover {
-  background: #006fa6;
-}
-
-.export-btn {
-  background: #2eaa6f;
-}
-.export-btn:hover {
-  background: #1f7a4f;
-}
+/* DRAG & DROP */
+#drop-zone { border: 2px dashed #555; border-radius: 8px; padding: 40px; text-align: center; cursor: pointer; background: #161616; transition: all 0.2s; }
+#drop-zone p { font-size: 1.1rem; margin-bottom: 6px; }
+#drop-zone span { font-size: 0.9rem; color: #888; }
+#drop-zone.dragover { border-color: #00bcd4; background: #1e1e1e; }
+#drop-zone input { display: none; }
+#file-name { margin-top: 10px; font-size: 0.9rem; color: #aaa; }
