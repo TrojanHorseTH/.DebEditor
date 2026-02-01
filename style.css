@@ -1,20 +1,20 @@
-/* GLOBAL RESET */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, system-ui, sans-serif;
 }
 
-/* DARK BACKGROUND */
+/* PAGE */
 html, body {
   width: 100%;
   height: 100%;
-  background: #131313;
-  color: #e0e0e0;
+  background: #121212;
+  color: #e6e6e6;
 }
 
-/* MAIN CONTAINER */
+/* CONTAINER */
 .editor-container {
   max-width: 900px;
   margin: 40px auto;
@@ -27,176 +27,93 @@ html, body {
   margin-bottom: 30px;
 }
 .topbar h1 {
-  font-size: 2.8rem;
-  margin-bottom: 8px;
+  font-size: 2.6rem;
 }
 .topbar p {
-  color: #a0a0a0;
-  font-size: 1rem;
+  color: #9a9a9a;
 }
 
-/* SECTION STYLING */
+/* SECTIONS */
 .section {
-  background: #1f1f1f;
+  background: #1c1c1c;
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 24px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
 }
-
 .section h2 {
-  font-size: 1.4rem;
   margin-bottom: 12px;
-  color: #fff;
+  font-size: 1.3rem;
 }
 
-/* TEXT AREA */
-textarea {
-  width: 100%;
-  height: 220px;
-  background: #161616;
-  border: 1px solid #333;
-  color: #e0e0e0;
-  padding: 12px;
-  border-radius: 6px;
-  resize: vertical;
-  margin-bottom: 12px;
-  font-family: monospace;
-}
-
-/* BUTTONS */
-.btn {
-  display: inline-block;
-  background: #0088cc;
-  color: #fff;
-  padding: 12px 24px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.btn:hover {
-  background: #005f8a;
-}
-
-/* CUSTOM FILE INPUT */
-.custom-file-upload {
-  display: inline-block;
-  background: #444;
-  padding: 10px 18px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-.custom-file-upload input {
-  display: none;
-}
-
-.export-btn {
-  background: #22aa66;
-}
-.export-btn:hover {
-  background: #1a7a4f;
-}
-/* GLOBAL RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-}
-
-/* DARK BACKGROUND */
-html, body {
-  width: 100%;
-  height: 100%;
-  background: #131313;
-  color: #e0e0e0;
-}
-
-/* MAIN CONTAINER */
-.editor-container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
-}
-
-/* HEADER */
-.topbar {
+/* DRAG & DROP */
+#drop-zone {
+  border: 2px dashed #444;
+  border-radius: 8px;
+  padding: 40px;
   text-align: center;
-  margin-bottom: 30px;
-}
-.topbar h1 {
-  font-size: 2.8rem;
-  margin-bottom: 8px;
-}
-.topbar p {
-  color: #a0a0a0;
-  font-size: 1rem;
+  cursor: pointer;
+  background: #151515;
+  transition: all 0.2s ease;
 }
 
-/* SECTION STYLING */
-.section {
-  background: #1f1f1f;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+#drop-zone.dragover {
+  border-color: #0088cc;
+  background: #1e1e1e;
 }
 
-.section h2 {
-  font-size: 1.4rem;
-  margin-bottom: 12px;
-  color: #fff;
+#drop-zone p {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
 }
 
-/* TEXT AREA */
+#drop-zone span {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+#drop-zone input {
+  display: none;
+}
+
+#file-name {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* TEXTAREA */
 textarea {
   width: 100%;
   height: 220px;
-  background: #161616;
+  background: #121212;
   border: 1px solid #333;
-  color: #e0e0e0;
+  color: #e6e6e6;
   padding: 12px;
   border-radius: 6px;
   resize: vertical;
-  margin-bottom: 12px;
   font-family: monospace;
 }
 
 /* BUTTONS */
 .btn {
-  display: inline-block;
   background: #0088cc;
-  color: #fff;
-  padding: 12px 24px;
-  font-size: 1rem;
+  color: white;
   border: none;
+  padding: 12px 22px;
+  font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.2s;
 }
-.btn:hover {
-  background: #005f8a;
-}
 
-/* CUSTOM FILE INPUT */
-.custom-file-upload {
-  display: inline-block;
-  background: #444;
-  padding: 10px 18px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-.custom-file-upload input {
-  display: none;
+.btn:hover {
+  background: #006fa6;
 }
 
 .export-btn {
-  background: #22aa66;
+  background: #2eaa6f;
 }
 .export-btn:hover {
-  background: #1a7a4f;
+  background: #1f7a4f;
 }
