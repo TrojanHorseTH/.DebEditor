@@ -2,41 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>.DebEditor</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>.DebEditor</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <div class="editor-container">
     <header class="topbar">
       <h1>.DebEditor</h1>
       <p>Import · Edit · Export .deb files</p>
     </header>
 
-    <!-- IMPORT -->
-    <section class="section">
+    <!-- Import Section -->
+    <section class="section import-section">
       <h2>Import .deb</h2>
-
       <div id="drop-zone">
         <p>Drag & drop a <strong>.deb</strong> file here</p>
         <span>or click to select</span>
         <input type="file" id="import-file" accept=".deb">
       </div>
-
       <p id="file-name"></p>
+      <button class="btn" onclick="uploadFile()">Import</button>
     </section>
 
-    <!-- EDIT -->
-    <section class="section">
+    <!-- Edit Section -->
+    <section class="section edit-section">
       <h2>Edit Package</h2>
-      <textarea id="file-contents" placeholder="Package data will appear here…"></textarea>
+      <textarea id="file-contents" placeholder="Package content will appear here..."></textarea>
+      <button class="btn" onclick="saveChanges()">Apply Changes</button>
     </section>
 
-    <!-- EXPORT -->
-    <section class="section">
+    <!-- Export Section -->
+    <section class="section export-section">
       <h2>Export .deb</h2>
-      <button class="btn export-btn" onclick="exportFile()">Export Package</button>
+      <button class="btn export-btn" onclick="exportPackage()">Export Package</button>
     </section>
   </div>
 
@@ -45,41 +44,76 @@
     const fileInput = document.getElementById("import-file");
     const fileName = document.getElementById("file-name");
     const textArea = document.getElementById("file-contents");
+    let currentFile = null;
 
     dropZone.addEventListener("click", () => fileInput.click());
 
-    dropZone.addEventListener("dragover", (e) => {
+    dropZone.addEventListener("dragover", e => {
       e.preventDefault();
       dropZone.classList.add("dragover");
     });
 
-    dropZone.addEventListener("dragleave", () => {
-      dropZone.classList.remove("dragover");
-    });
+    dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
 
-    dropZone.addEventListener("drop", (e) => {
+    dropZone.addEventListener("drop", e => {
       e.preventDefault();
       dropZone.classList.remove("dragover");
       handleFile(e.dataTransfer.files[0]);
     });
 
-    fileInput.addEventListener("change", () => {
-      handleFile(fileInput.files[0]);
-    });
+    fileInput.addEventListener("change", () => handleFile(fileInput.files[0]));
 
     function handleFile(file) {
       if (!file || !file.name.endsWith(".deb")) {
         alert("Please select a valid .deb file.");
         return;
       }
+      currentFile = file;
       fileName.textContent = `Loaded: ${file.name}`;
-      textArea.value = `Loaded package: ${file.name}\n\n(This is UI-only. Backend needed to unpack/edit.)`;
+      textArea.value = "";
     }
 
-    function exportFile() {
-      alert("Export requires backend support (dpkg-deb).");
+    async function uploadFile() {
+      if (!currentFile) { alert("No file selected."); return; }
+      const formData = new FormData();
+      formData.append("debfile", currentFile);
+
+      const res = await fetch("/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        textArea.value = data.contents;
+      } else {
+        alert("Failed to unpack .deb");
+      }
+    }
+
+    async function saveChanges() {
+      const res = await fetch("/edit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contents: textArea.value })
+      });
+      const data = await res.json();
+      if (data.success) alert("Changes saved!");
+      else alert("Failed to save changes.");
+    }
+
+    async function exportPackage() {
+      const res = await fetch("/export");
+      if (!res.ok) { alert("Export failed."); return; }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = currentFile ? currentFile.name : "package.deb";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
     }
   </script>
-
 </body>
 </html>
